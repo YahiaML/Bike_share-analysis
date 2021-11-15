@@ -1,129 +1,707 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+import time
+import pandas as pd
+import numpy as np
 
-# C extensions
-*.so
+CITY_DATA = { 'chicago': 'chicago.csv',
+              'new york city': 'new_york_city.csv',
+              'washington': 'washington.csv' }
+      
+def get_filters():
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+    whole_loop = True
+    time_filter_loop = True
+    month_loop = True
+    day_loop = True
+    both_loop = True
+    Error = True  
+  
+    #City input ----------------------------- City input ---------------------------------- City input
+    while whole_loop  :
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+        print("\nWhich city do you want check ?\n")
+        city = input("Chicago, New York City, Washington?\n").lower()  
+  
+        if city in ["chicago", "new york city", "washington"] :              
+    
+  
+          #Time Filter Input ------------------- Time Filter Input ---------------------Time Filter Input   
+  
+            while time_filter_loop :
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+                print("\nHow would you like to check the data ?. \n")
+                time_filter = input("By month, day, both, or without any time filter ? insert (without) for no time filter.\n").lower()  
+  
+                if time_filter in ["month" , "day" , "both", "without"] :                      
+  
+                    # Month input ------------------------ Month input --------------------------- Month input --------------------------- Month input--------------------------- Month input  
+  
+                    if time_filter == "month" :                                   
+                        while month_loop  :
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
+                            print("\n Which month do you want? ")
+                            month = input("(All, January, February, March, April, May, June)\n").lower()  
+      
+                            if month in ["all", "january", "february", "march", "april", "may", "june"] :
 
-# Translations
-*.mo
-*.pot
+                                day =0
+                                return city, month, day,time_filter
+                                whole_loop = False
+                                time_filter_loop = False 
+                                month_loop = False # finally finished editing  -------------  
+        
+      
+                            # Month Wrong Input ----------------- Month Wrong Input ----------------- Month Wrong Input
+                            elif month not in ["all", "january", "february", "march", "april", "may", "june"] :
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
+                                print("\n","*"*40,"\nPlease check your spelling and if the month you have chosen is valid. \n")
+                                Error = True
 
-# Flask stuff:
-instance/
-.webassets-cache
+                                while Error :
+                                    re_choose = input("Want to re-choose? Enter yes or no.\n").lower()
+                                
+                                    if re_choose == 'no':# Exit the program ------------             
+                                        whole_loop = False   
+                                        time_filter_loop = False 
+                                        month_loop = False
+                                        Error = False 
+                                      
+                                    elif re_choose not in ["yes","no"] : # only for stupids -----------
+                                        print("\n","*"*40,"\n please insert a valid choice")
+                                        Error = True 
+                                
+                                    elif re_choose == "yes" : # re_choose -----------  
+      
+                                        Error = False   
+    
+                    # Day input ------------------------ Day input --------------------------- Day input --------------------------- Day input --------------------------- Day input
+                    elif time_filter == "day" :           
+                        while day_loop  :
 
-# Scrapy stuff:
-.scrapy
+                            print("\n Which day do you want? ")
+                            day = input("(All, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, or Sunday)\n").lower()  
+    
+                            if day in ["all", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"] :
+                                month =0
+                                return city, month, day,time_filter                  
+                                whole_loop = False
+                                time_filter_loop = False 
+                                day_loop = False # finally finished editing  -------------  
+      
+    
+                            # Day Wrong Input ----------------- Day Wrong Input ----------------- Day Wrong Input
+                            elif day not in ["all", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"] :
+                                print("\n","*"*40,"\nPlease check your spelling and if the day you have chosen is valid. \n")
+                                Error = True
+                                while Error :                                    
+                                    re_choose = input("Want to re-choose? Enter yes or no.\n").lower()
+                                
+                                    if re_choose == 'no':# Exit the program ------------             
+                                        whole_loop = False   
+                                        time_filter_loop = False 
+                                        day_loop = False
+                                        Error = False 
+                                      
+                                    elif re_choose not in ["yes","no"] : # only for stupids -----------
+                                        print("\n","*"*40,"\n please insert a valid choice")
+                                        Error = True 
+                                
+                                    elif re_choose == "yes" : # re_choose -----------
+                                        Error = False     
+    
+                              
+    
+                    # Both input ------------------------ Both input --------------------------- Both input --------------------------- Both input--------------------------- Both input  
+    
+                    elif time_filter == "both" :           
+                        while both_loop  :
+                            print("\n Which month do you want? ")
+                            month = input("(All, January, February, March, April, May, June)\n").lower()  
+    
+                            if month in ["all", "january", "february", "march", "april", "may", "june"] :
+                                print("\n Which day do you want? ")  
+    
+                                day = input("(All, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, or Sunday)\n").lower()  
+    
+                                if day in ["all", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"] :
+                                    #print(city, month, day)
+                                    return city, month, day,time_filter
+                                    whole_loop = False
+                                    time_filter_loop = False 
+                                    both_loop = False # finally finished editing  -------------  
+    
+                                # Day in Both Wrong Input ----------------- Day in Both Wrong Input ----------------- Day in Both Wrong Input
+                                elif day not in ["all", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"] :  
+    
+                                    print("\n","*"*40,"\nPlease check your spelling and if the day you have chosen is valid. \n")
+                                    Error = True
+                                    
+                                    while Error :  
+      
+                                        re_choose = input("Want to re-choose? Enter yes or no.\n").lower()
+                                    
+                                        if re_choose == 'no': # Exit the program ------------             
+                                            whole_loop = False   
+                                            time_filter_loop = False 
+                                            both_loop = False
+                                            Error = False 
+                                            
+                                        elif re_choose not in ["yes","no"] :# only for stupids -----------
+                                            print("\n","*"*40,"\n please insert a valid choice")
+                                            Error = True 
+                                    
+                                        elif re_choose == "yes" : # re_choose -----------
+                                            Error = False     
+          
+      
+                          # Month in Both Wrong Input ----------------- Month in Both Wrong Input ----------------- Month in Both Wrong Input
+                            elif month not in ["all", "january", "february", "march", "april", "may", "june"] :
+                                print("\n","*"*40,"\nPlease check your spelling and if the month you have chosen is valid. \n")
+                                Error = True
+                                while Error :
+                                    re_choose = input("Want to re-choose? Enter yes or no.\n").lower()
+                                
+                                    if re_choose == 'no':# Exit the program ------------             
+                                        whole_loop = False   
+                                        time_filter_loop = False 
+                                        both_loop = False
+                                        Error = False 
+                                      
+                                    elif re_choose not in ["yes","no"] : # only for stupids -----------
+                                        print("\n","*"*40,"\n please insert a valid choice")
+                                        Error = True 
+                                
+                                    elif re_choose == "yes" : # re_choose -----------  
+      
+                                        Error = False 
+                        
+      
+                    #Without filter ------------------------ Without filter ------------------------ Without filter ------------------------ Without filter ------------------------ Without filter 
+                    elif time_filter == "without" :
+                        month = 0
+                        day = 0
+                        return city, month, day,time_filter
+                        whop = False
+                        time_filter_loop = False 
+                        both_loop = False # finally finished editing  -------------             
+    
+                # Time Filter Wrong Input ------------------ Time Filter Wrong Input --------------- Time Filter Wrong Input
+                elif time_filter not in ["month", "day", "both", "without"] :
 
-# Sphinx documentation
-docs/_build/
+                    print("\n","*"*40,"\nPlease check your spelling and if the time filter you have chosen is valid. \n")
+                    Error = True
+                    while Error :
 
-# PyBuilder
-target/
+                        re_choose = input("Want to re-choose? Enter yes or no.\n").lower()  
+                        if re_choose == 'no':# Exit the program ------------             
+                            whole_loop = False   
+                            time_filter_loop = False
+                            month_loop = False 
+                            Error = False 
+                          
+                        elif re_choose not in ["yes","no"] : # only for stupids -----------
+                            print("\n","*"*40,"\n please insert a valid choice")
+                            Error = True   
+                        elif re_choose == "yes" : # re_choose -----------
+                            Error = False                   
+  
 
-# Jupyter Notebook
-.ipynb_checkpoints
+        # City Wrong Input ---------------- City Wrong Input --------------- City Wrong Input
+        elif city not in ["chicago", "new york city", "washington"]  :
+  
+            print("\n","*"*40,"\nPlease check your spelling and if the city you have chosen is valid. \n")
+            while Error :            
+                re_choose = input("Want to re-choose? Enter yes or no.\n").lower()
+                if re_choose == 'no':# Exit the program ------------             
+                    whole_loop = False   
+                    time_filter_loop = False 
+                    month_loop = False
+                    Error = False 
+                  
+                elif re_choose not in ["yes","no"] : # only for stupids -----------
+                    print("\n","*"*40,"\n please insert a valid choice")
+                    Error = True 
+                elif re_choose == "yes" : # re_choose -----------
+                    Error = False    
+  
 
-# IPython
-profile_default/
-ipython_config.py
+# End of get_Function -------------------------- End of get_Function -------------------------- End of get_Function -------------------------- End of get_Function --------------------------
 
-# pyenv
-.python-version
+# End of get_Function -------------------------- End of get_Function -------------------------- End of get_Function -------------------------- End of get_Function --------------------------
 
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
+# End of get_Function -------------------------- End of get_Function -------------------------- End of get_Function -------------------------- End of get_Function --------------------------
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
 
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
 
-# SageMath parsed files
-*.sage.py
+# *******************************************************************************************************************************************************************************************************
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
 
-# Spyder project settings
-.spyderproject
-.spyproject
 
-# Rope project settings
-.ropeproject
+# Start Of Load Function -------------------------- Start Of Load Function -------------------------- Start Of Load Function -------------------------- Start Of Load Function --------------------------
 
-# mkdocs documentation
-/site
+# Start Of Load Function -------------------------- Start Of Load Function -------------------------- Start Of Load Function -------------------------- Start Of Load Function --------------------------
 
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
+# Start Of Load Function -------------------------- Start Of Load Function -------------------------- Start Of Load Function -------------------------- Start Of Load Function --------------------------
 
-# Pyre type checker
-.pyre/
+
+def load_data(city, month, day) :          
+
+    # Load the Data -------------------------- Load the Data -------------------------- Load the Data --------------------------
+
+    df = pd.read_csv(CITY_DATA[city])
+    df['Start Time'] = pd.to_datetime(df['Start Time'])
+      
+
+    # By Month -------------------- By Month -------------------- By Month --------------------  
+
+    # Month in Months ---------------  
+
+    if month in ["january", "february", "march", "april", "may", "june"] and day == 0:
+            
+        Month_Data = {"january":1, "february":2, "march":3, "april":4, "may":5, "june":6}
+        month_num = Month_Data[month]
+          
+        df['month'] = df['Start Time'].dt.month
+        df['day'] = df['Start Time'].dt.day_name()
+        df['hour'] = df['Start Time'].dt.hour
+        df = df[df['month']  == month_num]
+        return df  
+
+    # Month = All ---------------  
+
+    elif month == "all" and day == 0 :  
+
+        df['month'] = df['Start Time'].dt.month
+        df['day'] = df['Start Time'].dt.day_name()
+        df['hour'] = df['Start Time'].dt.hour
+        return df  
+
+    # By Day -------------------- By Day -------------------- By Day --------------------   
+
+    # Day in Days ---------------  
+
+    elif day in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"] and month == 0:
+      
+        df['day'] = df['Start Time'].dt.day_name()
+        df['hour'] = df['Start Time'].dt.hour
+        df = df[df['day'] == day.title()]
+        return df  
+
+    # Day = All ---------------  
+
+    elif day == "all" and month == 0 :
+        df['hour'] = df['Start Time'].dt.hour
+        df['day'] = df['Start Time'].dt.day_name()
+        return df  
+
+    # Both_Both -------------------- Both_Both -------------------- Both_Both --------------------   
+
+    elif month in ["january", "february", "march", "april", "may", "june"] and day in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"] :  
+
+        Month_Data = {"january":1, "february":2, "march":3, "april":4, "may":5, "june":6}
+        month_num = Month_Data[month]
+          
+        df['month'] = df['Start Time'].dt.month
+        df['hour'] = df['Start Time'].dt.hour
+        df = df[df['month']  == month_num]  
+  
+        df['day'] = df['Start Time'].dt. day_name()    
+  
+        df = df[df['day']  == day.title()]
+        return df  
+
+    # Both_Month = all -------------------- Both_Month = all -------------------- Both_Month = all --------------------   
+
+    elif month == "all" and day in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"] :
+          
+        df['month'] = df['Start Time'].dt.month
+        
+        df['day'] = df['Start Time'].dt. day_name()
+        df['hour'] = df['Start Time'].dt.hour    
+  
+        df = df[df['day']  == day.title()]
+        return df  
+
+    # Both_Day =all -------------------- Both_Day =all -------------------- Both_Day =all --------------------   
+
+    elif month in ["january", "february", "march", "april", "may", "june"] and day == "all" :  
+
+        Month_Data = {"january":1, "february":2, "march":3, "april":4, "may":5, "june":6}
+        month_num = Month_Data[month]
+        
+        df['month'] = df['Start Time'].dt.month      
+  
+        df['day'] = df['Start Time'].dt. day_name()
+        df['hour'] = df['Start Time'].dt.hour  
+  
+        df = df[df['month']  == month_num ]
+        return df
+            
+
+      # Both =all -------------------- Both =all -------------------- Both =all --------------------   
+
+    elif month == "all" and day == "all" or month == 0 and day == 0:
+        
+        df['month'] = df['Start Time'].dt.month  
+  
+        df['day'] = df['Start Time'].dt. day_name()
+        df['hour'] = df['Start Time'].dt.hour 
+        return df  
+
+
+  
+# End Of Load Function -------------------------- End Of Load Function -------------------------- End Of Load Function -------------------------- End Of Load Function --------------------------
+
+# End Of Load Function -------------------------- End Of Load Function -------------------------- End Of Load Function -------------------------- End Of Load Function --------------------------
+
+# End Of Load Function -------------------------- End Of Load Function -------------------------- End Of Load Function -------------------------- End Of Load Function --------------------------
+
+
+
+# *******************************************************************************************************************************************************************************************************
+
+
+
+# Start of Time_Stats -------------------------- Start of Time_Stats -------------------------- Start of Time_Stats -------------------------- Start of Time_Stats --------------------------
+
+# Start of Time_Stats -------------------------- Start of Time_Stats -------------------------- Start of Time_Stats -------------------------- Start of Time_Stats --------------------------
+
+# Start of Time_Stats -------------------------- Start of Time_Stats -------------------------- Start of Time_Stats -------------------------- Start of Time_Stats --------------------------
+
+
+
+def time_stats(df,time_filter,month, day):                
+
+    print('-'*40)
+    print('\nCalculating The Most Frequent Times of Travel...\n')
+    start_time = time.time()
+    """
+    if time_filter == "without" or time_filter == "both" :
+    # display the most common month
+    most_common_month = df['month'].mode()[0]
+    most_common_day = df['day'].mode()[0]
+    most_common_start_hour = df['hour'].mode()[0]
+    
+    
+    
+    print("The most common month is ", most_common_month )
+    print("The most common day is ", most_common_day )
+    print("The most common start hour is ", most_common_start_hour )
+    # display the most common day of week
+    """
+# Month is defined --------------- Month is defined ---------------
+
+    if month in ["january", "february", "march", "april", "may", "june"] and day == 0:          
+
+        most_common_day = df['day'].mode()[0]
+        most_common_start_hour = df['hour'].mode()[0]
+  
+        print("The most common day in ", month.title()," is ",most_common_day)
+        print("The most common start hour in ", month.title()," is ",most_common_start_hour)
+
+    # Month = All ---------------
+
+    elif month == "all" and day == 0 :
+
+        most_common_month = df['month'].mode()[0]
+        most_common_day = df['day'].mode()[0]
+        most_common_start_hour = df['hour'].mode()[0]
+        
+        print("The most common month is ",most_common_month)
+        print("The most common day is ",most_common_day)
+        print("The most common start hour in all months is ",most_common_start_hour)
+
+    # Day is defined -------------------- Day is defined -------------------- Day is defined -------------------- 
+
+    # Day in Days ---------------
+
+    elif day in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"] and month == 0:
+
+        most_common_start_hour = df['hour'].mode()[0]
+        print("The most common start hour in ", day.title()," is ",most_common_start_hour)
+
+    # Day = All ---------------
+
+    elif day == "all" and month == 0 :
+
+      
+        most_common_day = df['day'].mode()[0]
+        most_common_start_hour = df['hour'].mode()[0]
+        
+        
+        print("The most common day is ",most_common_day)
+        print("The most common start hour in all days is ",most_common_start_hour)
+
+    # Both_Both -------------------- Both_Both -------------------- Both_Both -------------------- 
+
+    elif month in ["january", "february", "march", "april", "may", "june"] and day in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"] :
+
+        most_common_start_hour = df['hour'].mode()[0]    
+        
+        
+        print("The most common start hour in ", day," in all ", month, " months is ",most_common_start_hour)
+
+
+    # Both_Month = all -------------------- Both_Month = all -------------------- Both_Month = all -------------------- 
+
+    elif month == "all" and day in ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"] :
+          
+        most_common_start_hour = df['hour'].mode()[0]    
+        
+        
+        print("The most common start hour in ", day," in all months is ",most_common_start_hour)
+      
+
+    # Both_Day =all -------------------- Both_Day =all -------------------- Both_Day =all -------------------- 
+
+    elif month in ["january", "february", "march", "april", "may", "june"] and day == "all" :
+
+        most_common_day = df['day'].mode()[0]
+        most_common_start_hour = df['hour'].mode()[0]
+        
+        
+        print("The most common day in ",month, " is ",most_common_day)
+        print("The most common start hour in all days is ",most_common_start_hour)
+          
+
+      # Both =all -------------------- Both =all -------------------- Both =all -------------------- 
+
+    elif month == "all" and day == "all" or month == 0 and day == 0:                
+        
+        most_common_month = df['month'].mode()[0]
+        most_common_day = df['day'].mode()[0]
+        most_common_start_hour = df['hour'].mode()[0]
+        
+        
+        
+        print("The most common month is ", most_common_month )
+        print("The most common day is ", most_common_day )
+        print("The most common start hour is ", most_common_start_hour )
+
+    # display the most common start hour
+
+
+    print("\nThis took %s seconds." % (time.time() - start_time))
+    print('-'*40)
+
+
+# End of Time_Stats -------------------------- End of Time_Stats -------------------------- End of Time_Stats -------------------------- End of Time_Stats --------------------------
+
+# End of Time_Stats -------------------------- End of Time_Stats -------------------------- End of Time_Stats -------------------------- End of Time_Stats --------------------------
+
+# End of Time_Stats -------------------------- End of Time_Stats -------------------------- End of Time_Stats -------------------------- End of Time_Stats --------------------------
+
+# *******************************************************************************************************************************************************************************************************
+
+# Start of station_stats -------------------------- Start of station_stats -------------------------- Start of station_stats -------------------------- Start of station_stats --------------------------
+
+# Start of station_stats -------------------------- Start of station_stats -------------------------- Start of station_stats -------------------------- Start of station_stats --------------------------
+
+# Start of station_stats -------------------------- Start of station_stats -------------------------- Start of station_stats -------------------------- Start of station_stats --------------------------
+
+def station_stats(df):
+
+    """Displays statistics on the most popular stations and trip."""
+    
+    #print('-'*40)
+    print('\nCalculating The Most Popular Stations and Trip...\n')
+    start_time = time.time()
+
+    # display most commonly used start station
+    start_station = df["Start Station"].mode()[0]
+
+    print("The most commonly used start station is :",start_station)
+
+    # display most commonly used end station
+    End_station = df["End Station"].mode()[0]
+
+    print("The most commonly used End station is :",End_station)
+
+    # display most frequent combination of start station and end station trip
+    df["trip"]  =  "From: " + df["Start Station"] + "\n\nTo: " + df["End Station"]
+    print("\nThe most common trip is:")
+    print(" ")
+    print(df["trip"].mode()[0])
+
+
+    print("\nThis took %s seconds." % (time.time() - start_time))
+    print('-'*40)
+
+
+
+
+
+# End of station_stats -------------------------- End of station_stats -------------------------- End of station_stats -------------------------- End of station_stats --------------------------
+
+# End of station_stats -------------------------- End of station_stats -------------------------- End of station_stats -------------------------- End of station_stats --------------------------
+
+# End of station_stats -------------------------- End of station_stats -------------------------- End of station_stats -------------------------- End of station_stats --------------------------
+
+
+# *************************************************************************************************************************************************************************************************
+
+
+# Start of trip_duration_stats -------------------------- Start of trip_duration_stats -------------------------- Start of trip_duration_stats -------------------------- Start of trip_duration_stats --------------------------
+
+# Start of trip_duration_stats -------------------------- Start of trip_duration_stats -------------------------- Start of trip_duration_stats -------------------------- Start of trip_duration_stats --------------------------
+
+# Start of trip_duration_stats -------------------------- Start of trip_duration_stats -------------------------- Start of trip_duration_stats -------------------------- Start of trip_duration_stats --------------------------
+
+
+def trip_duration_stats(df):
+
+    """Displays statistics on the total and average trip duration."""
+
+    print('\nCalculating Trip Duration...\n')
+    start_time = time.time()
+
+    # display total travel time
+    
+    print("Total travel time =",df['Trip Duration'].sum())
+
+    # display mean travel time
+    print("The average travel time=",df['Trip Duration'].mean())
+
+
+    print("\nThis took %s seconds." % (time.time() - start_time))
+    print('-'*40)
+
+
+
+
+# End of trip_duration_stats -------------------------- End of trip_duration_stats -------------------------- End of trip_duration_stats -------------------------- End of trip_duration_stats --------------------------
+
+# End of trip_duration_stats -------------------------- End of trip_duration_stats -------------------------- End of trip_duration_stats -------------------------- End of trip_duration_stats --------------------------
+
+# End of trip_duration_stats -------------------------- End of trip_duration_stats -------------------------- End of trip_duration_stats -------------------------- End of trip_duration_stats --------------------------
+
+
+# ***********************************************************************************************************************************************************************************************************************
+
+
+# Start of user_stats -------------------------- Start of user_stats -------------------------- Start of user_stats -------------------------- Start of user_stats --------------------------
+
+# Start of user_stats -------------------------- Start of user_stats -------------------------- Start of user_stats -------------------------- Start of user_stats --------------------------
+
+# Start of user_stats -------------------------- Start of user_stats -------------------------- Start of user_stats -------------------------- Start of user_stats --------------------------
+
+def user_stats(df, city):
+
+    """Displays statistics on bikeshare users."""
+
+    print('\nCalculating User Stats...\n')
+    start_time = time.time()
+
+    # Display counts of user types
+    print("Counts of user types: ")   
+    print(df['User Type'].value_counts())  
+    
+    if city in ["chicago", "new york city"] :
+
+        print("\n","-"*10)
+        # Display counts of gender
+        print("Counts of gender: ")
+        print(df['Gender'].value_counts())
+        print("\n","-"*10)
+  
+        # Display earliest, most recent, and most common year of birth
+        
+        print("\nThe earliest year of birth is:",df['Birth Year'].min())
+        print("\nThe most recent year of birth is:",df['Birth Year'].max())
+        print("\nThe most common year of birth is:",df['Birth Year'].mode()[0]) 
+    
+    
+        print("\nThis took %s seconds." % (time.time() - start_time))
+        print('-'*40)
+
+
+# End of user_stats -------------------------- End of user_stats -------------------------- End of user_stats -------------------------- End of user_stats --------------------------
+
+# End of user_stats -------------------------- End of user_stats -------------------------- End of user_stats -------------------------- End of user_stats --------------------------
+
+# End of user_stats -------------------------- End of user_stats -------------------------- End of user_stats -------------------------- End of user_stats --------------------------
+
+
+
+# ************************************************************************************************
+# ***********************************************************************************************************
+# **********************************************************************************************************************
+# *********************************************************************************************************************************
+
+def main():
+    
+    main_loop = True
+    while main_loop:        
+        city, month, day, time_filter = get_filters()
+        df = load_data(city, month, day)
+    
+        time_stats(df,time_filter,month, day)
+        station_stats(df)
+        trip_duration_stats(df)
+        user_stats(df, city)
+
+        # Asking the uesr if he wants to see raw input ---------------------------------------
+        print("Do you want to see 5 lines of raw data?")        
+
+        row_loop = True        
+
+        while row_loop :
+            answer = input("insert yes or no\n").lower()        
+
+            if answer == "yes" :
+                need_to_see = True
+                start_row = 0
+                End_row = 5        
+
+                while need_to_see :
+                    five_rows = df.iloc[start_row : End_row,:]
+                    print(five_rows)            
+                    start_row +=5
+                    End_row +=5        
+
+                    print("Do you want to see more 5 rows?")
+                    check = True               
+
+                    while check :
+                        need_more = input("insert yes or no\n").lower()
+                        if need_more == "yes" :
+                            need_to_see = True
+                            check = False        
+        
+
+                        elif need_more == "no" :
+                            row_loop = False
+                            need_to_see = False
+                            check = False        
+
+                        elif need_more not in ["yes","no"] :
+                          print("\n","*"*40,"\n please insert a valid choice")
+                          check = True        
+
+            elif answer == "no" :
+                row_loop = False         
+
+            elif answer not in["yes","no"] :
+                print("\n","*"*40,"\n please insert a valid choice")
+                row_loop = True
+                            
+             # End of Asking the uesr if he wants to see raw input ---------------------------------------
+        
+        Dont_Exit = True
+        while Dont_Exit :
+            re_choose = input('\nWould you like to restart? Enter yes or no.\n').lower()
+            if re_choose == 'no':# Exit the program ------------ 
+                print("Thanks Udasity")
+                main_loop = False        
+                Dont_Exit = False 
+              
+            elif re_choose not in ["yes","no"] : 
+                print("\n","*"*40,"\n please insert a valid choice")
+                Dont_Exit = True 
+      
+            elif re_choose == "yes" : # re_choose -----------
+                Dont_Exit = False  
+
+
+# Running the function ---------------------
+
+main()
